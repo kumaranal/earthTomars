@@ -3,8 +3,7 @@ const cors= require ("cors")
 const app=express();
 const routes= require("./routes/routerPath")
 const fileupload=require('express-fileupload');
-const interceptor = require('express-interceptor');
-
+const finalresponce=require('./middlewares/interseptor')
 require('dotenv').config();
 
 app.use(express.json())
@@ -21,16 +20,6 @@ app.listen(port,()=>{
 });
 
 
-const finalresponce = interceptor(function(req, res){
-    return {
-      isInterceptable: function(){
-        return true;
-      },
-      intercept: function(body, send) {
-        send(body);
-      }
-    };
-  })
 
   app.use(finalresponce)
    app.use('/',routes);
